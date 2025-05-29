@@ -17,8 +17,8 @@ func _physics_process(delta: float) -> void:
 @export_category("Movement Options")
 @export var speed := 5.0
 @export var rotation_speed := 12.0
+@export var jump_velocity := 4.5
 # These will be added in later PRs
-# @export var jump_velocity := 4.5
 # @export var dash_speed := 10.0
 # @export var dash_length := 5.0
 # @export var dash_cooldown := 0.2
@@ -31,6 +31,8 @@ var _last_movement_direction := Vector3.FORWARD
 func _do_iwr(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
+	elif Input.is_action_pressed("jump"):
+		velocity += Vector3.UP * jump_velocity
 	
 	var input_vector := Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	var input_magnitude := minf(input_vector.length(), 1)
