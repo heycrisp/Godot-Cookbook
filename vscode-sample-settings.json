@@ -1,0 +1,11 @@
+{
+	"godotTools.editorPath.godot4": "<<Copy/Paste this code into /.vscode/settings.json, update path to Godot4 executable>>",
+	"editor.formatOnSave": true,
+	"editor.formatOnPaste": true,
+	"diffEditor.ignoreTrimWhitespace": false,
+	"editor.acceptSuggestionOnEnter": "smart",
+	"editor.insertSpaces": false,
+	"editor.detectIndentation": false,
+	"godotTools.inlayHints.gdscript": true,
+	"godotTools.lsp.headless": true
+}
