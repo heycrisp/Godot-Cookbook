@@ -1,20 +1,18 @@
 extends Node3D
 
 func _ready() -> void:
-	unpause()
+	_capture_mouse()
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("pause"):
-		if get_tree().paused:
-			unpause()
+		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+			_release_mouse()
 		else:
-			pause()
+			_capture_mouse()
 	
 
-func pause():
-	get_tree().paused = true
+func _release_mouse():
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
-func unpause():
-	get_tree().paused = false
+func _capture_mouse():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
