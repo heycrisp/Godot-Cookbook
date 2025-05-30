@@ -1,4 +1,4 @@
-extends CharacterBody3D
+class_name ThirdPersonController extends CharacterBody3D
 
 @onready var model: Node3D = $Model
 @onready var twist_pivot: Node3D = $Twist
@@ -10,9 +10,6 @@ func _unhandled_input(event: InputEvent) -> void:
 func _process(delta: float) -> void:
 	_camera_rotate_twist(delta)
 	_camera_rotate_pitch(delta)
-
-func _physics_process(delta: float) -> void:
-	_do_iwr(delta)
 
 @export_category("Movement Options")
 @export var speed := 5.0
@@ -29,11 +26,6 @@ func _physics_process(delta: float) -> void:
 var _last_movement_direction := Vector3.FORWARD
 
 func _do_iwr(delta: float) -> void:
-	if not is_on_floor():
-		velocity += get_gravity() * delta
-	elif Input.is_action_pressed("jump"):
-		velocity += Vector3.UP * jump_velocity
-	
 	var input_vector := Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	var input_magnitude := minf(input_vector.length(), 1)
 	var input_direction = input_vector.normalized()
@@ -48,8 +40,10 @@ func _do_iwr(delta: float) -> void:
 		
 	var target_angle := Vector3.FORWARD.signed_angle_to(_last_movement_direction, Vector3.UP)
 	model.rotation.y = lerp_angle(model.rotation.y, target_angle, rotation_speed * delta)
-	move_and_slide()
+	
 
+func _do_fall(delta: float) -> void:
+	velocity += get_gravity() * delta
 	
 @export_category("Camera Options")
 @export var camera_init_twist := 0.0
