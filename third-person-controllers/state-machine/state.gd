@@ -1,18 +1,18 @@
 class_name State extends Node
 
-@warning_ignore("UNUSED_SIGNAL")
+@warning_ignore_start("unused_parameter", "unused_signal")
 signal finished(next_state_path: String, data: Dictionary)
 
-func _unhandled_input(_event: InputEvent) -> void:
+func _do_unhandled_input(event: InputEvent) -> void:
 	pass
 
-func _process(_delta: float) -> void:
+func _do_process(delta: float) -> void:
 	pass
 
-func _physics_process(_delta: float) -> void:
+func _do_physics_process(delta: float) -> void:
 	pass
 
-func _enter(_previous_state_path: String, _data := {}) -> void:
+func _enter(previous_state_path: String, data := {}) -> void:
 	pass
 
 func _exit() -> void:
