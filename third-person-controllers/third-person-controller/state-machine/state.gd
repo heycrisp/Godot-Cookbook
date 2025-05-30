@@ -9,4 +9,4 @@ var tpc: ThirdPersonController
 func _ready() -> void:
 	await owner.ready
 	tpc = owner as ThirdPersonController
-	assert(tpc != null, "The ThirdPersonControllerState type must be a direct child of a ThirdPersonController.")
+	assert(tpc != null, "ThirdPersonControllerState must be a child of ThirdPersonController.")

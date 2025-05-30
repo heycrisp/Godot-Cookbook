@@ -1,5 +1,7 @@
 class_name ThirdPersonController extends CharacterBody3D
 
+signal last_movement_direction_updated(direction: Vector3)
+
 @onready var model: Node3D = $Model
 @onready var twist_pivot: Node3D = $Twist
 
@@ -29,6 +31,7 @@ func _do_iwr(delta: float) -> void:
 		_last_movement_direction = Vector3(input_direction.x, 0, input_direction.y).rotated(Vector3.UP, twist_pivot.rotation.y) * input_magnitude * speed
 		velocity.x = _last_movement_direction.x
 		velocity.z = _last_movement_direction.z
+		last_movement_direction_updated.emit(_last_movement_direction)
 		
 	var target_angle := Vector3.FORWARD.signed_angle_to(_last_movement_direction, Vector3.UP)
 	model.rotation.y = lerp_angle(model.rotation.y, target_angle, rotation_speed * delta)
