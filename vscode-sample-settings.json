@@ -3,7 +3,7 @@
 	"editor.formatOnSave": true,
 	"editor.formatOnPaste": true,
 	"diffEditor.ignoreTrimWhitespace": false,
-	"editor.acceptSuggestionOnEnter": "smart",
+	"editor.acceptSuggestionOnEnter": "off",
 	"editor.insertSpaces": false,
 	"editor.detectIndentation": false,
 	"godotTools.inlayHints.gdscript": true,
