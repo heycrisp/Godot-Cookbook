@@ -1,6 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://oxyumaw1iadk"]
+[gd_scene load_steps=14 format=3 uid="uid://oxyumaw1iadk"]
 
 [ext_resource type="Script" uid="uid://d0ixx1sbbgv3y" path="res://third-person-controller/third_person_controller.gd" id="1_raonk"]
+[ext_resource type="Script" uid="uid://drcjvbdv55mrc" path="res://third-person-controller/state-machine/state_machine.gd" id="2_hq6i3"]
+[ext_resource type="Script" uid="uid://d2tx5e4nqly0v" path="res://third-person-controller/state-machine/idle_walk_run.gd" id="3_otdli"]
+[ext_resource type="Script" uid="uid://dq5nuw1p8r2m5" path="res://third-person-controller/state-machine/jump.gd" id="4_i6k8c"]
+[ext_resource type="Script" uid="uid://d3bo8vc5ho77h" path="res://third-person-controller/state-machine/fall.gd" id="5_otdli"]
 
 [sub_resource type="Gradient" id="Gradient_fm20d"]
 colors = PackedColorArray(0, 0.623711, 0.62869, 1, 1, 1, 1, 1)
@@ -54,3 +58,16 @@ transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 
 
 [node name="Camera3D" type="Camera3D" parent="Twist/Pitch"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 1, 5)
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("2_hq6i3")
+initial_state = NodePath("IdleWalkRun")
+
+[node name="IdleWalkRun" type="Node" parent="StateMachine"]
+script = ExtResource("3_otdli")
+
+[node name="Jump" type="Node" parent="StateMachine"]
+script = ExtResource("4_i6k8c")
+
+[node name="Fall" type="Node" parent="StateMachine"]
+script = ExtResource("5_otdli")
