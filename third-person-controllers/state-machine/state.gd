@@ -24,3 +24,13 @@ func _enter(previous_state_path: String, data := {}) -> void:
 
 func _exit() -> void:
 	pass
+
+func generate_delta_dictionary(delta: float, func_name: String) -> Dictionary: return {
+	"delta": delta,
+	"func": func_name
+}
+
+func generate_input_dictionary(event: InputEvent, func_name: String) -> Dictionary: return {
+	"event": event,
+	"func": func_name
+}
