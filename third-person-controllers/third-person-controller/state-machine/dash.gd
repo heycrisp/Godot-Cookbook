@@ -17,6 +17,5 @@ func _do_physics_process(_d) -> void:
 func _on_duration_timeout() -> void:
 	finished.emit(IWR)
 
-
 func _on_cooldown_timeout() -> void:
 	tpc.is_dash_ready = true
