@@ -1,10 +1,12 @@
-[gd_scene load_steps=14 format=3 uid="uid://oxyumaw1iadk"]
+[gd_scene load_steps=16 format=3 uid="uid://oxyumaw1iadk"]
 
 [ext_resource type="Script" uid="uid://d0ixx1sbbgv3y" path="res://third-person-controller/third_person_controller.gd" id="1_raonk"]
 [ext_resource type="Script" uid="uid://drcjvbdv55mrc" path="res://third-person-controller/state-machine/state_machine.gd" id="2_hq6i3"]
+[ext_resource type="Script" uid="uid://crr8qcwlunyou" path="res://third-person-controller/twist.gd" id="2_i6k8c"]
 [ext_resource type="Script" uid="uid://d2tx5e4nqly0v" path="res://third-person-controller/state-machine/idle_walk_run.gd" id="3_otdli"]
 [ext_resource type="Script" uid="uid://dq5nuw1p8r2m5" path="res://third-person-controller/state-machine/jump.gd" id="4_i6k8c"]
 [ext_resource type="Script" uid="uid://d3bo8vc5ho77h" path="res://third-person-controller/state-machine/fall.gd" id="5_otdli"]
+[ext_resource type="Script" uid="uid://dnyuk46th8ggg" path="res://third-person-controller/state-machine/dash.gd" id="7_yid2g"]
 
 [sub_resource type="Gradient" id="Gradient_fm20d"]
 colors = PackedColorArray(0, 0.623711, 0.62869, 1, 1, 1, 1, 1)
@@ -52,11 +54,13 @@ shape = SubResource("CapsuleShape3D_ss2ul")
 
 [node name="Twist" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+top_level = true
+script = ExtResource("2_i6k8c")
 
 [node name="Pitch" type="Node3D" parent="Twist"]
 transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 0, 0)
 
-[node name="Camera3D" type="Camera3D" parent="Twist/Pitch"]
+[node name="FreeCamera" type="Camera3D" parent="Twist/Pitch"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 1, 5)
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
@@ -71,3 +75,15 @@ script = ExtResource("4_i6k8c")
 
 [node name="Fall" type="Node" parent="StateMachine"]
 script = ExtResource("5_otdli")
+
+[node name="Dash" type="Node" parent="StateMachine"]
+script = ExtResource("7_yid2g")
+
+[node name="Duration" type="Timer" parent="StateMachine/Dash"]
+one_shot = true
+
+[node name="Cooldown" type="Timer" parent="StateMachine/Dash"]
+
+[connection signal="last_movement_direction_updated" from="." to="Twist" method="_on_player_last_movement_direction_updated"]
+[connection signal="timeout" from="StateMachine/Dash/Duration" to="StateMachine/Dash" method="_on_duration_timeout"]
+[connection signal="timeout" from="StateMachine/Dash/Cooldown" to="StateMachine/Dash" method="_on_cooldown_timeout"]

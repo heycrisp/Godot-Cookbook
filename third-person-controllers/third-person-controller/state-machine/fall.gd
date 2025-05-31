@@ -1,14 +1,18 @@
 extends ThirdPersonControllerState
 
-func _enter(_p, _d = {}) -> void:
-	pass
-
-func _exit() -> void:
-	pass
-
 func _do_physics_process(delta: float) -> void:
-	if tpc.is_on_floor():
-		finished.emit(IWR)
+	# print("Fall _do_physics_process")
+	if tpc.is_start_dash():
+		finished.emit(DASH, {
+			"delta": delta,
+			"func": "_do_physics_process"
+		})
+		return
+	elif tpc.is_on_floor():
+		finished.emit(IWR, {
+			"delta": delta,
+			"func": "_do_physics_process"
+		})
 		return
 	
 	tpc._do_fall(delta)
