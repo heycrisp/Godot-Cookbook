@@ -29,9 +29,14 @@ func is_start_dash() -> bool: return (
 	)
 )
 
-func _set_last_movement_direction(direction: Vector3) -> void:
+func get_last_movement_direction() -> Vector3: return _last_movement_direction
+func set_last_movement_direction(direction: Vector3) -> void:
 	_last_movement_direction = direction
 	last_movement_direction_updated.emit(direction)
+
+func look_forward(weight: float) -> void:
+	var target_angle := Vector3.FORWARD.signed_angle_to(_last_movement_direction, Vector3.UP)
+	model.rotation.y = lerp_angle(model.rotation.y, target_angle, weight)
 
 func _do_dash() -> void:
 	var input_vector := Input.get_vector("move_left", "move_right", "move_up", "move_down")
@@ -44,7 +49,7 @@ func _do_dash() -> void:
 	velocity.x = direction.x
 	velocity.z = direction.z
 	velocity.y = 0
-	_set_last_movement_direction(dash_direction)
+	set_last_movement_direction(dash_direction)
 
 func _do_iwr(delta: float) -> void:
 	var input_vector := Input.get_vector("move_left", "move_right", "move_up", "move_down")
@@ -55,13 +60,11 @@ func _do_iwr(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, speed)
 		velocity.z = move_toward(velocity.z, 0, speed)
 	else:
-		_last_movement_direction = Vector3(input_direction.x, 0, input_direction.y).rotated(Vector3.UP, twist_pivot.rotation.y) * input_magnitude * speed
+		set_last_movement_direction(Vector3(input_direction.x, 0, input_direction.y).rotated(Vector3.UP, twist_pivot.rotation.y) * input_magnitude * speed)
 		velocity.x = _last_movement_direction.x
 		velocity.z = _last_movement_direction.z
-		last_movement_direction_updated.emit(_last_movement_direction)
 		
-	var target_angle := Vector3.FORWARD.signed_angle_to(_last_movement_direction, Vector3.UP)
-	model.rotation.y = lerp_angle(model.rotation.y, target_angle, rotation_speed * delta)
+	look_forward(rotation_speed * delta)
 
 func _do_fall(delta: float) -> void:
 	velocity += get_gravity() * delta

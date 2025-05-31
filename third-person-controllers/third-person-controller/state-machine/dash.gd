@@ -8,6 +8,7 @@ func _enter(_p, _d = {}) -> void:
 	tpc._do_dash()
 	duration.start(tpc.dash_length / tpc.dash_speed)
 	tpc.is_dash_ready = false
+	tpc.look_forward(1.0)
 	super (_p, _d)
 
 func _exit() -> void:
