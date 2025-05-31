@@ -16,7 +16,7 @@ func _enter(previous_state_path: String, data := {}) -> void:
 	var delta = data.get("delta")
 	var event = data.get("event")
 	var func_name = data.get("func")
-	print("Base _enter: delta=%s event=%s, func_name=%s" % [delta, event, func_name])
+	# print("Base _enter: delta=%s event=%s, func_name=%s" % [delta, event, func_name])
 	match func_name:
 		"_do_unhandled_input" when event: _do_unhandled_input(event)
 		"_do_process" when delta: _do_process(delta)
