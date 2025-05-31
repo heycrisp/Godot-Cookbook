@@ -6,7 +6,6 @@ func _ready() -> void:
 	await owner.ready
 	tpc = owner as ThirdPersonController
 	assert(tpc != null, "ThirdPersonController_Twist must be a child of ThirdPersonController.")
-	tpc.last_movement_direction_updated.connect(_handle_last_movement_direction_updated)
 
 func _unhandled_input(event: InputEvent) -> void:
 	_capture_unhandled_mouse_event(event)
@@ -38,7 +37,7 @@ var mouse_input_clamp := 1.0
 var last_camera_lag := 0.0
 var _last_movement_direction := Vector3.FORWARD
 
-func _handle_last_movement_direction_updated(direction: Vector3) -> void:
+func _on_player_last_movement_direction_updated(direction: Vector3) -> void:
 	_last_movement_direction = direction
 
 func _get_camera_look_vector() -> Vector2:

@@ -9,15 +9,41 @@ signal last_movement_direction_updated(direction: Vector3)
 @export var speed := 5.0
 @export var rotation_speed := 12.0
 @export var jump_velocity := 4.5
-# These will be added in later PRs
-# @export var dash_speed := 10.0
-# @export var dash_length := 5.0
-# @export var dash_cooldown := 0.2
-# var dash_direction: Vector3
-# var dash_length_remaining := 0.0
-# var dash_cooldown_timer := 0.0
+@export var dash_speed := 10.0
+@export var dash_length := 5.0
+@export var dash_cooldown := 0.3
+@export var is_dash_hold := false
 
+var is_dash_ready := true
 var _last_movement_direction := Vector3.FORWARD
+
+func is_start_dash() -> bool: return (
+	is_dash_ready and
+	(
+		Input.is_action_just_pressed("dash") or
+		(
+			is_dash_hold and
+			Input.is_action_pressed("dash")
+		)
+	)
+)
+
+func _set_last_movement_direction(direction: Vector3) -> void:
+	_last_movement_direction = direction
+	last_movement_direction_updated.emit(direction)
+
+func _do_dash() -> void:
+	var input_vector := Input.get_vector("move_left", "move_right", "move_up", "move_down")
+	var dash_direction := (
+		Vector3(input_vector.x, 0, input_vector.y).rotated(Vector3.UP, twist_pivot.rotation.y) if input_vector else
+		Vector3.FORWARD.rotated(Vector3.UP, model.rotation.y)
+	).normalized()
+	
+	var direction = dash_direction * dash_speed
+	velocity.x = direction.x
+	velocity.z = direction.z
+	velocity.y = 0
+	_set_last_movement_direction(dash_direction)
 
 func _do_iwr(delta: float) -> void:
 	var input_vector := Input.get_vector("move_left", "move_right", "move_up", "move_down")

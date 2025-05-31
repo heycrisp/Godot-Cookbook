@@ -3,6 +3,7 @@ class_name ThirdPersonControllerState extends State
 const IWR := "IdleWalkRun"
 const JUMP := "Jump"
 const FALL := "Fall"
+const DASH := "Dash"
 
 var tpc: ThirdPersonController
 
