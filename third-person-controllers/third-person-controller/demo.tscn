@@ -46,3 +46,4 @@ size = Vector3(30, 10, 30)
 
 [node name="Player" parent="." instance=ExtResource("1_vyiun")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.629, 1, 0.01)
+dash_speed = 75.0

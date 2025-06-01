@@ -10,4 +10,6 @@ func _do_physics_process(delta: float) -> void:
 		return
 	
 	tpc._do_fall(delta)
+	if tpc.is_mid_air_movement:
+		tpc._do_iwr(delta)
 	tpc.move_and_slide()
