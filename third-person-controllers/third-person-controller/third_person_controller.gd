@@ -13,6 +13,7 @@ signal last_movement_direction_updated(direction: Vector3)
 @export var dash_length := 5.0
 @export var dash_cooldown := 0.3
 @export var is_dash_hold := false
+@export var is_mid_air_movement := true
 
 var is_dash_ready := true
 var _last_movement_direction := Vector3.FORWARD
