@@ -86,8 +86,8 @@ func _capture_unhandled_mouse_event(event: InputEvent) -> void:
 			return
 
 	if event is InputEventMouseMotion:
-		twist_input_mouse = _mouse_clamp(event.relative.x * camera_mouse_sensitivity, mouse_input_clamp)
-		pitch_input_mouse = _mouse_clamp(event.relative.y * camera_mouse_sensitivity, mouse_input_clamp)
+		twist_input_mouse = _mouse_clamp(event.screen_relative.x * camera_mouse_sensitivity, mouse_input_clamp)
+		pitch_input_mouse = _mouse_clamp(event.screen_relative.y * camera_mouse_sensitivity, mouse_input_clamp)
 
 func _follow_player(_delta: float) -> void:
 	last_camera_lag = 0.15
