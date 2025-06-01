@@ -56,7 +56,7 @@ shape = SubResource("CapsuleShape3D_ss2ul")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 top_level = true
 script = ExtResource("2_i6k8c")
-look_invert_x = false
+look_invert_y = true
 
 [node name="Pitch" type="Node3D" parent="Twist"]
 transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 0, 0)
