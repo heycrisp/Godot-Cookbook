@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://oxyumaw1iadk"]
+[gd_scene load_steps=17 format=3 uid="uid://oxyumaw1iadk"]
 
 [ext_resource type="Script" uid="uid://d0ixx1sbbgv3y" path="res://third-person-controller/third_person_controller.gd" id="1_raonk"]
 [ext_resource type="Script" uid="uid://drcjvbdv55mrc" path="res://third-person-controller/state-machine/state_machine.gd" id="2_hq6i3"]
@@ -35,6 +35,8 @@ height = 0.95
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ss2ul"]
 
+[sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_yid2g"]
+
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_raonk")
 
@@ -61,8 +63,13 @@ look_invert_y = true
 [node name="Pitch" type="Node3D" parent="Twist"]
 transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 0, 0)
 
-[node name="FreeCamera" type="Camera3D" parent="Twist/Pitch"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 1, 5)
+[node name="SpringArm3D" type="SpringArm3D" parent="Twist/Pitch"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("SeparationRayShape3D_yid2g")
+spring_length = 5.0
+
+[node name="FreeCamera" type="Camera3D" parent="Twist/Pitch/SpringArm3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 1.49012e-08, 0, -1.49012e-08, 1, 0.2, 1, 0)
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("2_hq6i3")
