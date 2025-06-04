@@ -14,6 +14,7 @@ func _enter(_p, _d = {}) -> void:
 func _exit() -> void:
 	# print("Dash _exit")
 	cooldown.start(tpc.dash_cooldown)
+	tpc._end_dash()
 
 func _do_physics_process(_d) -> void:
 	# print("Dash _do_physics_process")
