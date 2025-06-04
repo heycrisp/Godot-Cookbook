@@ -17,6 +17,7 @@ signal last_movement_direction_updated(direction: Vector3)
 
 var is_dash_ready := true
 var _last_movement_direction := Vector3.FORWARD
+var _look_direction := Vector3.FORWARD
 
 func is_start_dash() -> bool: return (
 	is_dash_ready and
@@ -32,10 +33,11 @@ func is_start_dash() -> bool: return (
 func get_last_movement_direction() -> Vector3: return _last_movement_direction
 func set_last_movement_direction(direction: Vector3) -> void:
 	_last_movement_direction = direction
+	_look_direction = direction
 	last_movement_direction_updated.emit(direction)
 
 func look_forward(weight: float) -> void:
-	var target_angle := Vector3.FORWARD.signed_angle_to(_last_movement_direction, Vector3.UP)
+	var target_angle := Vector3.FORWARD.signed_angle_to(_look_direction, Vector3.UP)
 	model.rotation.y = lerp_angle(model.rotation.y, target_angle, weight)
 
 func _do_dash() -> void:
@@ -50,6 +52,10 @@ func _do_dash() -> void:
 	velocity.z = direction.z
 	velocity.y = 0
 	set_last_movement_direction(dash_direction)
+
+func _end_dash() -> void:
+	velocity.x = move_toward(velocity.x, speed, dash_speed)
+	velocity.z = move_toward(velocity.z, speed, dash_speed)
 
 func _do_iwr(delta: float) -> void:
 	var input_vector := Input.get_vector("move_left", "move_right", "move_up", "move_down")
