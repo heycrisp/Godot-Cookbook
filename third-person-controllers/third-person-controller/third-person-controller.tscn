@@ -64,7 +64,6 @@ look_invert_y = true
 transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 0, 0)
 
 [node name="SpringArm3D" type="SpringArm3D" parent="Twist/Pitch"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 shape = SubResource("SeparationRayShape3D_yid2g")
 spring_length = 5.0
 

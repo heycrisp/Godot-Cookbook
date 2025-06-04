@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://dnajd06eujhut"]
 
-[ext_resource type="Script" uid="uid://dxsjn015y824s" path="res://third-person-controller/demo.gd" id="1_ss3lw"]
 [ext_resource type="PackedScene" uid="uid://oxyumaw1iadk" path="res://third-person-controller/third-person-controller.tscn" id="1_vyiun"]
+[ext_resource type="PackedScene" uid="uid://cq1is8bcp5mri" path="res://menu/pause.tscn" id="2_ss3lw"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_s0h5f"]
 sky_top_color = Color(0.741721, 0.0816152, 0.656019, 1)
@@ -26,7 +26,8 @@ albedo_texture = SubResource("PlaceholderTexture2D_ss3lw")
 roughness = 0.0
 
 [node name="Demo" type="Node3D"]
-script = ExtResource("1_ss3lw")
+
+[node name="Menu" parent="." instance=ExtResource("2_ss3lw")]
 
 [node name="Env" type="Node" parent="."]
 
