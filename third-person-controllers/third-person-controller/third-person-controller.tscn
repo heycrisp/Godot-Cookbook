@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://oxyumaw1iadk"]
+[gd_scene load_steps=18 format=3 uid="uid://oxyumaw1iadk"]
 
 [ext_resource type="Script" uid="uid://d0ixx1sbbgv3y" path="res://third-person-controller/third_person_controller.gd" id="1_raonk"]
 [ext_resource type="Script" uid="uid://drcjvbdv55mrc" path="res://third-person-controller/state-machine/state_machine.gd" id="2_hq6i3"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://dq5nuw1p8r2m5" path="res://third-person-controller/state-machine/jump.gd" id="4_i6k8c"]
 [ext_resource type="Script" uid="uid://d3bo8vc5ho77h" path="res://third-person-controller/state-machine/fall.gd" id="5_otdli"]
 [ext_resource type="Script" uid="uid://dnyuk46th8ggg" path="res://third-person-controller/state-machine/dash.gd" id="7_yid2g"]
+[ext_resource type="PackedScene" uid="uid://cq0bb4yx3m4ay" path="res://health-bar/health-bar-3d.tscn" id="8_mditm"]
 
 [sub_resource type="Gradient" id="Gradient_fm20d"]
 colors = PackedColorArray(0, 0.623711, 0.62869, 1, 1, 1, 1, 1)
@@ -57,7 +58,6 @@ shape = SubResource("CapsuleShape3D_ss2ul")
 
 [node name="Twist" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-top_level = true
 script = ExtResource("2_i6k8c")
 look_invert_y = true
 
@@ -91,6 +91,9 @@ script = ExtResource("7_yid2g")
 one_shot = true
 
 [node name="Cooldown" type="Timer" parent="StateMachine/Dash"]
+
+[node name="HealthBar3d" parent="." instance=ExtResource("8_mditm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.29492, 0)
 
 [connection signal="last_movement_direction_updated" from="." to="Twist" method="_on_player_last_movement_direction_updated"]
 [connection signal="timeout" from="StateMachine/Dash/Duration" to="StateMachine/Dash" method="_on_duration_timeout"]

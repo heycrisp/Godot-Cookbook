@@ -2,8 +2,25 @@ class_name ThirdPersonController extends CharacterBody3D
 
 signal last_movement_direction_updated(direction: Vector3)
 
+func _ready() -> void:
+	twist_pivot.top_level = true
+	$HealthBar3d.set_max_value(max_hp)
+	$HealthBar3d.update_healthbar(hp)
+
 @onready var model: Node3D = $Model
 @onready var twist_pivot: Node3D = $Twist
+
+@export_category("Health Options")
+@export var hp := 10.0:
+	set(v):
+		hp = v
+		$HealthBar3d.update_healthbar(v)
+
+@export var max_hp := 10.0:
+	set(v):
+		max_hp = v
+		$HealthBar3d.set_max_value(v)
+
 
 @export_category("Movement Options")
 @export var speed := 5.0
