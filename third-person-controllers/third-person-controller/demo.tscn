@@ -43,7 +43,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.200953, 5.03202, -0.16352)
 material_override = SubResource("StandardMaterial3D_woynx")
 use_collision = true
 flip_faces = true
-size = Vector3(30, 10, 30)
+size = Vector3(50, 50, 50)
 
 [node name="Player" parent="." instance=ExtResource("1_vyiun")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.629, 1, 0.01)

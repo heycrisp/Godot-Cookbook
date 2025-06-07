@@ -38,6 +38,7 @@ height = 0.95
 [sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_yid2g"]
 
 [node name="Player" type="CharacterBody3D"]
+collision_layer = 2
 script = ExtResource("1_raonk")
 
 [node name="Model" type="Node3D" parent="."]
