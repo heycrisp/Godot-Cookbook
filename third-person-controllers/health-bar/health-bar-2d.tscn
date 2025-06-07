@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dpvorffbiscjj"]
+
+[ext_resource type="Texture2D" uid="uid://de0r6nuew3x7p" path="res://health-bar/barHorizontal_green_mid 200.png" id="1_xve0h"]
+[ext_resource type="Script" uid="uid://tfuly1m8ic8f" path="res://health-bar/health_bar_2d.gd" id="2_7skfm"]
+
+[node name="HealthBar2d" type="TextureProgressBar"]
+value = 100.0
+texture_progress = ExtResource("1_xve0h")
+script = ExtResource("2_7skfm")
