@@ -35,10 +35,6 @@ var pitch_input_mouse := 0.0
 var mouse_input_clamp := 1.0
 
 var last_camera_lag := 0.0
-var _last_movement_direction := Vector3.FORWARD
-
-func _on_player_last_movement_direction_updated(direction: Vector3) -> void:
-	_last_movement_direction = direction
 
 func _get_camera_look_vector() -> Vector2:
 	var look_vector := Input.get_vector("look_left", "look_right", "look_down", "look_up")
