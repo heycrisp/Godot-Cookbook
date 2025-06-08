@@ -1,7 +1,5 @@
 class_name ThirdPersonController extends CharacterBody3D
 
-signal last_movement_direction_updated(direction: Vector3)
-
 func _ready() -> void:
 	twist_pivot.top_level = true
 	$HealthBar3d.set_max_value(max_hp)
@@ -33,7 +31,10 @@ func _ready() -> void:
 @export var is_mid_air_movement := true
 
 var is_dash_ready := true
-var _last_movement_direction := Vector3.FORWARD
+var last_movement_direction := Vector3.FORWARD:
+	set(v):
+		last_movement_direction = v
+		_look_direction = v
 var _look_direction := Vector3.FORWARD
 
 func is_start_dash() -> bool: return (
@@ -46,12 +47,6 @@ func is_start_dash() -> bool: return (
 		)
 	)
 )
-
-func get_last_movement_direction() -> Vector3: return _last_movement_direction
-func set_last_movement_direction(direction: Vector3) -> void:
-	_last_movement_direction = direction
-	_look_direction = direction
-	last_movement_direction_updated.emit(direction)
 
 func look_forward(weight: float) -> void:
 	var target_angle := Vector3.FORWARD.signed_angle_to(_look_direction, Vector3.UP)
@@ -68,7 +63,7 @@ func _do_dash() -> void:
 	velocity.x = direction.x
 	velocity.z = direction.z
 	velocity.y = 0
-	set_last_movement_direction(dash_direction)
+	last_movement_direction = dash_direction
 
 func _end_dash() -> void:
 	velocity.x = move_toward(velocity.x, speed, dash_speed)
@@ -83,9 +78,9 @@ func _do_iwr(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, speed)
 		velocity.z = move_toward(velocity.z, 0, speed)
 	else:
-		set_last_movement_direction(Vector3(input_direction.x, 0, input_direction.y).rotated(Vector3.UP, twist_pivot.rotation.y) * input_magnitude * speed)
-		velocity.x = _last_movement_direction.x
-		velocity.z = _last_movement_direction.z
+		last_movement_direction = Vector3(input_direction.x, 0, input_direction.y).rotated(Vector3.UP, twist_pivot.rotation.y) * input_magnitude * speed
+		velocity.x = last_movement_direction.x
+		velocity.z = last_movement_direction.z
 		
 	look_forward(rotation_speed * delta)
 

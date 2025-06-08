@@ -95,6 +95,5 @@ one_shot = true
 [node name="HealthBar3d" parent="." instance=ExtResource("8_mditm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.29492, 0)
 
-[connection signal="last_movement_direction_updated" from="." to="Twist" method="_on_player_last_movement_direction_updated"]
 [connection signal="timeout" from="StateMachine/Dash/Duration" to="StateMachine/Dash" method="_on_duration_timeout"]
 [connection signal="timeout" from="StateMachine/Dash/Cooldown" to="StateMachine/Dash" method="_on_cooldown_timeout"]
