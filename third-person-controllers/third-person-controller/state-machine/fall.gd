@@ -10,6 +10,7 @@ func _do_physics_process(delta: float) -> void:
 		return
 	elif tpc.is_wall_slide and tpc.is_on_wall():
 		finished.emit(WALL_SLIDE, generate_delta_dictionary(delta, "do_physics_process"))
+		return
 	
 	tpc._do_fall(delta)
 	if tpc.is_mid_air_movement:
