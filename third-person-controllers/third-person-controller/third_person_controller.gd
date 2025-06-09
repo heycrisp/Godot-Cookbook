@@ -29,6 +29,8 @@ func _ready() -> void:
 @export var dash_cooldown := 0.3
 @export var is_dash_hold := false
 @export var is_mid_air_movement := true
+@export var is_wall_slide := false
+@export var wall_slide_velocity := -0.5
 
 var is_dash_ready := true
 var last_movement_direction := Vector3.FORWARD:
@@ -55,7 +57,7 @@ func look_forward(weight: float) -> void:
 func _do_dash() -> void:
 	var input_vector := Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	var dash_direction := (
-		Vector3(input_vector.x, 0, input_vector.y).rotated(Vector3.UP, twist_pivot.rotation.y) if input_vector else
+		Vector3(input_vector.x, 0, input_vector.y).rotated(Vector3.UP, twist_pivot.rotation.y) if is_on_floor() and input_vector else
 		Vector3.FORWARD.rotated(Vector3.UP, model.rotation.y)
 	).normalized()
 	
