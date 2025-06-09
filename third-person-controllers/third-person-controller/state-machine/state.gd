@@ -4,6 +4,8 @@ const IWR := "IdleWalkRun"
 const JUMP := "Jump"
 const FALL := "Fall"
 const DASH := "Dash"
+const WALL_SLIDE := "WallSlide"
+const WALL_JUMP := "WallJump"
 
 var tpc: ThirdPersonController
 
