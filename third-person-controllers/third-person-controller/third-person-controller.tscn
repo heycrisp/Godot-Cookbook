@@ -1,9 +1,11 @@
-[gd_scene load_steps=20 format=3 uid="uid://oxyumaw1iadk"]
+[gd_scene load_steps=22 format=3 uid="uid://oxyumaw1iadk"]
 
 [ext_resource type="Script" uid="uid://d0ixx1sbbgv3y" path="res://third-person-controller/third_person_controller.gd" id="1_raonk"]
+[ext_resource type="Script" uid="uid://ctoda5rjuk47g" path="res://third-person-controller/aim_camera.gd" id="2_1vt6q"]
 [ext_resource type="Script" uid="uid://drcjvbdv55mrc" path="res://third-person-controller/state-machine/state_machine.gd" id="2_hq6i3"]
 [ext_resource type="Script" uid="uid://crr8qcwlunyou" path="res://third-person-controller/twist.gd" id="2_i6k8c"]
 [ext_resource type="Script" uid="uid://d2tx5e4nqly0v" path="res://third-person-controller/state-machine/idle_walk_run.gd" id="3_otdli"]
+[ext_resource type="Script" uid="uid://b2r8i0h26xa10" path="res://third-person-controller/free_cam_spring_arm.gd" id="3_qxhmk"]
 [ext_resource type="Script" uid="uid://dq5nuw1p8r2m5" path="res://third-person-controller/state-machine/jump.gd" id="4_i6k8c"]
 [ext_resource type="Script" uid="uid://d3bo8vc5ho77h" path="res://third-person-controller/state-machine/fall.gd" id="5_otdli"]
 [ext_resource type="Script" uid="uid://dnyuk46th8ggg" path="res://third-person-controller/state-machine/dash.gd" id="7_yid2g"]
@@ -56,6 +58,10 @@ transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, 
 material_override = SubResource("StandardMaterial3D_6tgcd")
 mesh = SubResource("CapsuleMesh_b1iq0")
 
+[node name="AimCamera" type="Camera3D" parent="Model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.703477, 1.01086, 1.33316)
+script = ExtResource("2_1vt6q")
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_ss2ul")
 
@@ -67,11 +73,14 @@ look_invert_y = true
 [node name="Pitch" type="Node3D" parent="Twist"]
 transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 0, 0)
 
-[node name="SpringArm3D" type="SpringArm3D" parent="Twist/Pitch"]
+[node name="FreeCamSpringArm" type="SpringArm3D" parent="Twist/Pitch"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.7, 0)
 shape = SubResource("SeparationRayShape3D_yid2g")
 spring_length = 5.0
+script = ExtResource("3_qxhmk")
+zoom_min = 2.0
 
-[node name="FreeCamera" type="Camera3D" parent="Twist/Pitch/SpringArm3D"]
+[node name="FreeCamera" type="Camera3D" parent="Twist/Pitch/FreeCamSpringArm"]
 transform = Transform3D(1, 0, 0, 0, 1, 1.49012e-08, 0, -1.49012e-08, 1, 0.2, 1, 0)
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]

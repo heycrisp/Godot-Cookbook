@@ -4,9 +4,17 @@ func _ready() -> void:
 	twist_pivot.top_level = true
 	$HealthBar3d.set_max_value(max_hp)
 	$HealthBar3d.update_healthbar(hp)
+	free_camera.current = true
+	aim_camera.process_mode = Node.PROCESS_MODE_DISABLED
+
+func _process(_delta: float) -> void:
+	_handle_aim()
+
 
 @onready var model: Node3D = $Model
 @onready var twist_pivot: Node3D = $Twist
+@onready var free_camera: Camera3D = $Twist/Pitch/FreeCamSpringArm/FreeCamera
+@onready var aim_camera: Camera3D = $Model/AimCamera
 
 @export_category("Health Options")
 @export var hp := 10.0:
@@ -19,7 +27,7 @@ func _ready() -> void:
 		max_hp = v
 		$HealthBar3d.set_max_value(v)
 
-
+#region movement
 @export_category("Movement Options")
 @export var speed := 5.0
 @export var rotation_speed := 12.0
@@ -51,6 +59,7 @@ func is_start_dash() -> bool: return (
 )
 
 func look_forward(weight: float) -> void:
+	if is_aiming(): return
 	var target_angle := Vector3.FORWARD.signed_angle_to(_look_direction, Vector3.UP)
 	model.rotation.y = lerp_angle(model.rotation.y, target_angle, weight)
 
@@ -88,3 +97,29 @@ func _do_iwr(delta: float) -> void:
 
 func _do_fall(delta: float) -> void:
 	velocity += get_gravity() * delta
+#endregion 
+
+#region aiming
+func is_aiming() -> bool: return Input.is_action_pressed("aim")
+
+func _handle_aim() -> void:
+	if Input.is_action_just_pressed("aim"):
+		_do_aim_start()
+	elif Input.is_action_just_released("aim"):
+		_do_aim_end()
+
+func _do_aim_start() -> void:
+	aim_camera.current = true
+	aim_camera.process_mode = Node.PROCESS_MODE_INHERIT
+	free_camera.process_mode = Node.PROCESS_MODE_DISABLED
+	rotation.y = twist_pivot.rotation.y
+	model.rotation = Vector3.ZERO
+
+func _do_aim_end() -> void:
+	free_camera.current = true
+	free_camera.process_mode = Node.PROCESS_MODE_INHERIT
+	aim_camera.process_mode = Node.PROCESS_MODE_DISABLED
+	rotation.y = 0
+	model.rotation = Vector3.ZERO
+		
+#endregion
