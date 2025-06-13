@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dnajd06eujhut"]
+[gd_scene load_steps=9 format=3 uid="uid://dnajd06eujhut"]
 
 [ext_resource type="PackedScene" uid="uid://oxyumaw1iadk" path="res://third-person-controller/third-person-controller.tscn" id="1_vyiun"]
 [ext_resource type="PackedScene" uid="uid://cq1is8bcp5mri" path="res://menu/pause.tscn" id="2_ss3lw"]
@@ -25,6 +25,8 @@ albedo_color = Color(2.79158e-06, 0.406329, 0.679828, 1)
 albedo_texture = SubResource("PlaceholderTexture2D_ss3lw")
 roughness = 0.0
 
+[sub_resource type="SphereMesh" id="SphereMesh_0bhed"]
+
 [node name="Demo" type="Node3D"]
 
 [node name="Menu" parent="." instance=ExtResource("2_ss3lw")]
@@ -48,3 +50,7 @@ size = Vector3(50, 50, 50)
 [node name="Player" parent="." instance=ExtResource("1_vyiun")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.629, -18.968, 0.01)
 dash_speed = 75.0
+
+[node name="ForwardMarker" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -14, -24)
+mesh = SubResource("SphereMesh_0bhed")

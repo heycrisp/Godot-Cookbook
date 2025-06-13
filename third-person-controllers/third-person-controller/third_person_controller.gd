@@ -59,6 +59,7 @@ func is_start_dash() -> bool: return (
 )
 
 func look_forward(weight: float) -> void:
+	if is_aiming(): return
 	var target_angle := Vector3.FORWARD.signed_angle_to(_look_direction, Vector3.UP)
 	model.rotation.y = lerp_angle(model.rotation.y, target_angle, weight)
 
