@@ -15,6 +15,7 @@ func _process(_delta: float) -> void:
 @onready var twist_pivot: Node3D = $Twist
 @onready var free_camera: Camera3D = $Twist/Pitch/FreeCamSpringArm/FreeCamera
 @onready var aim_camera: Camera3D = $Model/AimCamera
+@onready var animation_tree: AnimationTree = $Model/AnimationTree
 
 @export_category("Health Options")
 @export var hp := 10.0:

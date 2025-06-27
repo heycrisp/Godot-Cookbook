@@ -14,3 +14,4 @@ func _do_physics_process(delta: float) -> void:
 
 	tpc._do_iwr(delta)
 	tpc.move_and_slide()
+	tpc.animation_tree.set("parameters/IWR/blend_position", tpc.velocity.length())

@@ -3,13 +3,13 @@
 importer="animation_library"
 importer_version=1
 type="AnimationLibrary"
-uid="uid://coalg2e7tfyrs"
-path="res://.godot/imported/y_bot animations.glb-cd3e168b0c5e7d52638a2e591768a39c.res"
+uid="uid://dywrdtd4xqb2t"
+path="res://.godot/imported/y_bot run directions.glb-7cc2bb2b5f03ac7fe141c7dabb50d8c2.res"
 
 [deps]
 
-source_file="res://third-person-controller/model/y_bot animations.glb"
-dest_files=["res://.godot/imported/y_bot animations.glb-cd3e168b0c5e7d52638a2e591768a39c.res"]
+source_file="res://third-person-controller/model/y_bot run directions.glb"
+dest_files=["res://.godot/imported/y_bot run directions.glb-7cc2bb2b5f03ac7fe141c7dabb50d8c2.res"]
 
 [params]
 
@@ -27,14 +27,14 @@ meshes/lightmap_texel_size=0.2
 meshes/force_disable_compression=false
 skins/use_named_skins=true
 animation/import=true
-animation/fps=60.0
+animation/fps=30
 animation/trimming=false
 animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
 _subresources={
 "animations": {
-"Crouch_Idle": {
+"Run Backward": {
 "save_to_file/enabled": false,
 "save_to_file/keep_custom_tracks": "",
 "save_to_file/path": "",
@@ -1833,7 +1833,7 @@ _subresources={
 "slice_99/start_frame": 0,
 "slices/amount": 0
 },
-"Idle": {
+"Run Left": {
 "save_to_file/enabled": false,
 "save_to_file/keep_custom_tracks": "",
 "save_to_file/path": "",
@@ -3632,7 +3632,7 @@ _subresources={
 "slice_99/start_frame": 0,
 "slices/amount": 0
 },
-"Run": {
+"Run Right": {
 "save_to_file/enabled": false,
 "save_to_file/keep_custom_tracks": "",
 "save_to_file/path": "",
