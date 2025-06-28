@@ -1,5 +1,8 @@
 extends ThirdPersonControllerState
 
+func _enter(_p, _d = {}) -> void:
+	tpc.animation_state.travel("Fall_Idle")
+
 func _do_physics_process(delta: float) -> void:
 	# print("Fall _do_physics_process")
 	if tpc.is_start_dash():
@@ -13,6 +16,7 @@ func _do_physics_process(delta: float) -> void:
 		return
 	
 	tpc._do_fall(delta)
+
 	if tpc.is_mid_air_movement:
 		tpc._do_iwr(delta)
 	tpc.move_and_slide()

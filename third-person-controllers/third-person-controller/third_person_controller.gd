@@ -5,7 +5,7 @@ func _ready() -> void:
 	$HealthBar3d.set_max_value(max_hp)
 	$HealthBar3d.update_healthbar(hp)
 	free_camera.current = true
-	aim_camera.process_mode = Node.PROCESS_MODE_DISABLED
+	_do_aim_end()
 
 func _process(_delta: float) -> void:
 	_handle_aim()
@@ -15,6 +15,8 @@ func _process(_delta: float) -> void:
 @onready var twist_pivot: Node3D = $Twist
 @onready var free_camera: Camera3D = $Twist/Pitch/FreeCamSpringArm/FreeCamera
 @onready var aim_camera: Camera3D = $Model/AimCamera
+@onready var animation_tree: AnimationTree = $Model/AnimationTree
+@onready var animation_state: AnimationNodeStateMachinePlayback = $Model/AnimationTree.get("parameters/playback")
 
 @export_category("Health Options")
 @export var hp := 10.0:
@@ -114,6 +116,8 @@ func _do_aim_start() -> void:
 	free_camera.process_mode = Node.PROCESS_MODE_DISABLED
 	rotation.y = twist_pivot.rotation.y
 	model.rotation = Vector3.ZERO
+	animation_tree.set("parameters/conditions/is_strafing", true)
+	animation_tree.set("parameters/conditions/not_is_strafing", false)
 
 func _do_aim_end() -> void:
 	free_camera.current = true
@@ -121,5 +125,7 @@ func _do_aim_end() -> void:
 	aim_camera.process_mode = Node.PROCESS_MODE_DISABLED
 	rotation.y = 0
 	model.rotation = Vector3.ZERO
+	animation_tree.set("parameters/conditions/is_strafing", false)
+	animation_tree.set("parameters/conditions/not_is_strafing", true)
 		
 #endregion
