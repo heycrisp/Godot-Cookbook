@@ -5,7 +5,7 @@ func _ready() -> void:
 	$HealthBar3d.set_max_value(max_hp)
 	$HealthBar3d.update_healthbar(hp)
 	free_camera.current = true
-	aim_camera.process_mode = Node.PROCESS_MODE_DISABLED
+	_do_aim_end()
 
 func _process(_delta: float) -> void:
 	_handle_aim()
@@ -116,7 +116,8 @@ func _do_aim_start() -> void:
 	free_camera.process_mode = Node.PROCESS_MODE_DISABLED
 	rotation.y = twist_pivot.rotation.y
 	model.rotation = Vector3.ZERO
-	animation_state.travel("IWR_Strafe")
+	animation_tree.set("parameters/conditions/is_strafing", true)
+	animation_tree.set("parameters/conditions/not_is_strafing", false)
 
 func _do_aim_end() -> void:
 	free_camera.current = true
@@ -124,6 +125,7 @@ func _do_aim_end() -> void:
 	aim_camera.process_mode = Node.PROCESS_MODE_DISABLED
 	rotation.y = 0
 	model.rotation = Vector3.ZERO
-	animation_state.travel("IWR")
+	animation_tree.set("parameters/conditions/is_strafing", false)
+	animation_tree.set("parameters/conditions/not_is_strafing", true)
 		
 #endregion

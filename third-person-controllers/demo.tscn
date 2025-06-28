@@ -48,7 +48,7 @@ flip_faces = true
 size = Vector3(50, 50, 50)
 
 [node name="Player" parent="." instance=ExtResource("1_vyiun")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.629, -18.968, 0.01)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.629, -18.8809, 0.01)
 dash_speed = 75.0
 
 [node name="ForwardMarker" type="MeshInstance3D" parent="."]

@@ -2,6 +2,7 @@ extends ThirdPersonControllerState
 
 func _enter(_p, _d = {}) -> void:
 	tpc.velocity.y = tpc.wall_slide_velocity
+	tpc.animation_state.travel("Wall_Slide_Idle")
 
 func _do_physics_process(delta) -> void:
 	if tpc.is_on_floor():
