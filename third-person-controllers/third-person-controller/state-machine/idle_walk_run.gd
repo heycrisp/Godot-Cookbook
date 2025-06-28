@@ -1,5 +1,7 @@
 extends ThirdPersonControllerState
 
+var last_input_direction := Vector2.ZERO
+
 func _do_physics_process(delta: float) -> void:
 	# print("IWR _do_physics_process")
 	if tpc.is_start_dash():
@@ -14,4 +16,11 @@ func _do_physics_process(delta: float) -> void:
 
 	tpc._do_iwr(delta)
 	tpc.move_and_slide()
+
 	tpc.animation_tree.set("parameters/IWR/blend_position", tpc.velocity.length())
+
+	var input_direction := Input.get_vector("move_left", "move_right", "move_up", "move_down")
+	if input_direction != last_input_direction:
+		input_direction = lerp(last_input_direction, input_direction, tpc.rotation_speed * delta)
+		last_input_direction = input_direction
+	tpc.animation_tree.set("parameters/IWR_Strafe/blend_position", input_direction)
